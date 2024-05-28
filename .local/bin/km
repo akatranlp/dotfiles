@@ -1,0 +1,26 @@
+#!/bin/env bash
+
+set -e
+
+MERGE_DIR='.'
+
+if [ -n "$1" ]; then
+    MERGE_DIR="$1"
+fi
+
+cd $MERGE_DIR
+
+echo "Trying to merge kubeconfig config with files in $MERGE_DIR"
+
+cp ~/.kube/config ~/.kube/config-backup
+
+export KUBECONFIG=~/.kube/config:$(find $MERGE_DIR -type f | tr '\n' ':')
+
+kubectl config view --flatten > all-in-one-kubeconfig.yaml
+
+mv all-in-one-kubeconfig.yaml ~/.kube/config
+
+echo "The following clusters are now configured:"
+
+kubectl config get-clusters
+
