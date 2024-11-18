@@ -1,0 +1,4 @@
+#!/bin/env bash
+
+yq -e '.data = (.data | withEntries(.value = (.value | @base64)))' $@
+
