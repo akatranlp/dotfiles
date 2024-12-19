@@ -14,7 +14,7 @@ echo "Trying to merge kubeconfig config with files in $MERGE_DIR"
 
 cp ~/.kube/config ~/.kube/config-backup
 
-export KUBECONFIG=~/.kube/config:$(find $MERGE_DIR -type f | tr '\n' ':')
+export KUBECONFIG=~/.kube/config:$(find . -type f | tr '\n' ':')
 
 kubectl config view --flatten > all-in-one-kubeconfig.yaml
 
