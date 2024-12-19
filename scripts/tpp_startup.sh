@@ -9,7 +9,7 @@ NGROK_BASE_CONFIG="$XDG_CONFIG_HOME/ngrok/ngrok.yml"
 
 echo "Using config(s): $NGROK_BASE_CONFIG $NGROK_CONFIG"
 
-ngrokApps=$(yq -r '.tunnels | to_entries | map([.key, .value.proto] | join("=")) | .[]' $NGROK_BASE_CONFIG $NGROK_CONFIG)
+ngrokApps=$(yq -r '.tunnels | to_entries | map("\(.key)=\(.value.proto)") | .[]' $NGROK_BASE_CONFIG $NGROK_CONFIG)
 
 APPS_REGEX=()
 APPS=()
