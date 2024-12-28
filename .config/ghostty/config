@@ -1,0 +1,11 @@
+config-file = ?local-config
+
+window-padding-color = background
+window-width = 150
+window-height = 40
+
+theme = catppuccin-mocha
+window-theme = ghostty
+
+font-family = "JetBrains Mono"
+
