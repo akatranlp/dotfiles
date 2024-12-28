@@ -6,6 +6,8 @@ window-height = 40
 
 theme = catppuccin-mocha
 window-theme = ghostty
+title = "🤓"
+# window-decoration = false
 
 font-family = "JetBrains Mono"
 
