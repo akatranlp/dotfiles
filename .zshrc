@@ -16,6 +16,7 @@ fi
 export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH"
 
 export EDITOR='nvim'
+export SHELL="/bin/zsh"
 
 # alias
 alias la="ls -lAh"
@@ -76,15 +77,15 @@ export PATH="$HOME/.turso:$PATH"
 export PATH="/usr/local/go/bin:$PATH"
 export PATH="$(go env GOPATH)/bin:$PATH"
 
-# yarn pnpm
-export PATH="$(yarn global bin):$PATH"
-export PATH="$HOME/.local/share/pnpm:$PATH"
-# yarn pnpm end
-
 # fnm
 export PATH="$HOME/.local/share/fnm:$PATH"
 eval "`fnm env --use-on-cd --corepack-enabled`"
 # fnm end
+
+# yarn pnpm
+export PATH="$(yarn global bin):$PATH"
+export PATH="$HOME/.local/share/pnpm:$PATH"
+# yarn pnpm end
 
 # bat
 export BAT_THEME="Catppuccin Mocha"
