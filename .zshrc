@@ -86,6 +86,12 @@ export PATH="$HOME/.local/share/fnm:$PATH"
 eval "`fnm env --use-on-cd --corepack-enabled`"
 # fnm end
 
+# bat
+export BAT_THEME="Catppuccin Mocha"
+eval "$(batman --export-env)"
+eval "$(batpipe)"
+# bat end
+
 eval "$(zoxide init zsh)"
 
 . <(akatran completion zsh)
