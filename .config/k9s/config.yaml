@@ -6,7 +6,7 @@ k9s:
   readOnly: false
   noExitOnCtrlC: false
   ui:
-    skin: nord
+    skin: catppuccin-mocha-transparent
     enableMouse: true
     headless: false
     logoless: false
