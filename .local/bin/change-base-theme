@@ -1,43 +1,17 @@
 #!/usr/bin/env bash
 
-themes=("nord" "catppuccin-mocha")
+themes=("catppuccin-mocha" "nord")
 
-theme=$1
+theme=$(printf '%s\n' ${themes[*]} | fzf)
 
-SCRIPT_DIR=$(cd "$(dirname "$0")"; pwd)
-
-containsElement () {
-  for theme in "${themes[@]}"; do [[ "$theme" == "$1" ]] && return 0; done
-  return 1
-}
-
-printAvailableThemes () {
-	for theme in "${themes[@]}"; do
-		echo "- $theme"
-	done
-}
-
-if ! containsElement "$theme"; then
-	echo "Select one of the following themes"
-	printAvailableThemes
+if [[ "$?" != "0" ]]; then
+	echo "You need to select a theme"
 	exit 1
 fi
+
+SCRIPT_DIR=$(cd "$(dirname "$0")"; pwd)
 
 for script in $SCRIPT_DIR/../../scripts/change-theme/*; do
 	$script $theme
 done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
