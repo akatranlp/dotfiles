@@ -1,11 +1,7 @@
 #!/bin/env bash
 
 NGROK_CONFIG=$1
-
-if [ -z "$XDG_CONFIG_HOME" ]; then
-  XDG_CONFIG_HOME="$HOME/.config"
-fi
-NGROK_BASE_CONFIG="$XDG_CONFIG_HOME/ngrok/ngrok.yml"
+NGROK_BASE_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/ngrok/ngrok.yml"
 
 echo "Using config(s): $NGROK_BASE_CONFIG $NGROK_CONFIG"
 
@@ -99,5 +95,13 @@ done
 
 echo "$clip" | xclip -sel c
 
-tmux attach -t "$USER" || tmux new -s "$USER"
+if [ -z "$TMUX" ]; then
+	# not in tmux
+	echo "$USER" > /tmp/tpp_session_name
+	tmux attach -A -s "$USER"
+else
+	# already in tmux
+	tmux display-message -p '#S' > /tmp/tpp_session_name
+fi
+
 
