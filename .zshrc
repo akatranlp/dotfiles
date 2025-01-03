@@ -4,15 +4,15 @@ if [ -f ~/.zshrc-local ]; then
 fi
 # local config end
 
-# export ZSH="$HOME/.oh-my-zsh"
-# ZSH_THEME="robbyrussell"
-# plugins=(
-#         git
-#         zsh-autosuggestions
-#         zsh-syntax-highlighting
-# )
-#
-# source $ZSH/oh-my-zsh.sh
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME=""
+plugins=(
+        git
+        zsh-autosuggestions
+        zsh-syntax-highlighting
+)
+
+source $ZSH/oh-my-zsh.sh
 export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH"
 
 export EDITOR='nvim'
@@ -92,6 +92,8 @@ export BAT_THEME="Catppuccin Mocha"
 eval "$(batman --export-env)"
 eval "$(batpipe)"
 # bat end
+
+eval "$(starship init zsh)"
 
 eval "$(zoxide init zsh)"
 
