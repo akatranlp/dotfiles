@@ -56,6 +56,16 @@ function b64d {
  echo -n $1 | base64 -d -w0
 }
 
+function toolsup {
+  cd ~/tools
+  if [ -f patch.compose.yaml ]; then
+    docker compose -f compose.yaml -f patch.compose.yaml up -d
+  else
+    docker compose up -d
+  fi
+  return "$?"
+}
+
 dcontext () {
         local host=$1
         if [ -z "$1" ]; then
