@@ -17,6 +17,7 @@ cp ~/.kube/config ~/.kube/config-backup
 export KUBECONFIG=~/.kube/config:$(find . -type f | tr '\n' ':')
 
 kubectl config view --flatten > all-in-one-kubeconfig.yaml
+chmod 600 all-in-one-kubeconfig.yaml
 
 mv all-in-one-kubeconfig.yaml ~/.kube/config
 
