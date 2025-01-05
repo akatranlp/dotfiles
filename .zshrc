@@ -24,9 +24,9 @@ export SHELL="/bin/zsh"
 alias la="ls -lAh"
 alias vim=nvim
 alias clr=clear
+
 alias k=kubectl
 alias kctx=kubectx
-alias kns="kubectl config set-context --current --namespace "
 alias kn="kubectl config set-context --current --namespace "
 
 alias lg="lazygit"
