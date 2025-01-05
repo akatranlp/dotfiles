@@ -1,0 +1,11 @@
+  [[blocks.segments]]
+    template = "via <b><cyan> v{{ .Full }}</></b>"
+    foreground = 'white'
+    background = 'transparent'
+    type = 'go'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.go', 'go.mod', 'go.work' ]
+

@@ -1,0 +1,72 @@
+  # Session segment (username) hostname
+  [[blocks.segments]]
+    template = "{{ if .SSHSession }}<b> {{ .UserName }}@{{ .Hostname }}</b>{{ end }}"
+    foreground = 'yellow'
+    background = 'transparent'
+    type = 'session'
+    style = 'plain'
+
+
+  # Path display
+  [[blocks.segments]]
+    template = ' <b>{{ .Path }}</b>{{ if not .Writable }}<red>🔒</>{{ end }} '
+    foreground = 'cyan'
+    background = 'transparent'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      style = 'agnoster_short'
+      max_depth = 2
+      folder_icon = '...'
+
+      [blocks.segments.properties.mapped_locations]
+        '~/projects' = ''
+
+
+  # Sudo segment
+  [[blocks.segments]]
+    #template = ''
+    foreground = 'white'
+    background = 'transparent'
+    type = 'root'
+    style = 'plain'
+
+
+  # OS left of the prompt symbol
+  [[blocks.segments]]
+    template = ' {{ if .WSL }}WSL at {{ end }}{{.Icon}}'
+    foreground = 'white'
+    background = 'transparent'
+    type = 'os'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_distro_name = true
+
+
+  # RPrompt
+  [[blocks.segments]]
+    template = ' took <b><yellow>{{ .FormattedMs }}</></b> '
+    foreground = 'white'
+    background = 'transparent'
+    type = 'executiontime'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      threshold = 2_000
+      style = 'round'
+
+
+# Kubernetes as a tooltip
+[[tooltips]]
+  tips = [ 'k', 'kubectl', 'kn', 'kubectx', 'kctx', 'kustomize', 'helm' ]
+  template = '<b>ﴱ {{ .Context }}{{ if and .Namespace (ne .Namespace "default") }}::{{ .Namespace }}{{ end }}</b>'
+  foreground = 'cyan'
+  background = 'transparent'
+  type = 'kubectl'
+  style = 'plain'
+
+  [tooltips.properties.context_aliases]
+    'minikube' = 'local'
+

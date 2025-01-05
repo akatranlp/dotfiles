@@ -1,0 +1,71 @@
+  # Docker segment
+  [[blocks.segments]]
+    template = "via <b><blue>  {{ .Context }}</></b>"
+    foreground = 'white'
+    background = 'transparent'
+    type = 'docker'
+    style = 'plain'
+
+
+  # Golang segment
+  [[blocks.segments]]
+    template = "via <b><cyan> v{{ .Full }}</></b>"
+    foreground = 'white'
+    background = 'transparent'
+    type = 'go'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.go', 'go.mod', 'go.work' ]
+
+  # NodeJS segment
+  [[blocks.segments]]
+    template = "via <b>{{ if .Mismatch }}<red>{{ else }}<green>{{ end }} v{{ .Full }}</></b>"
+    foreground = 'white'
+    background = 'transparent'
+    type = 'node'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.ts', '*.mts', '*.cts', '*.js', '*.mjs', '*.cjs', 'package.json', '.nvmrc', '.node-version' ]
+      folders = [ 'node_modules' ]
+
+  # Python segment
+  [[blocks.segments]]
+    template = "via <b><yellow>  v{{ .Full }}{{ if .Venv }}({{ .Venv }}){{ end }}</></b>"
+    foreground = 'white'
+    background = 'transparent'
+    type = 'python'
+    style = 'plain'
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.py', '*.ipynb', 'pyproject.toml', 'requirements.txt', 'setup.py', '.python-version' ]
+      folders = [ 'venv', '.venv' ]
+
+  # Rust segment
+  [[blocks.segments]]
+    template = "via <b><red> v{{ .Full }}</></b>"
+    # template = "via <b><red>🦀 v{{ .Full }}</></b>"
+    foreground = 'white'
+    background = 'transparent'
+    type = 'rust'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.rs', 'Cargo.toml' ]
+
+  # Zig segment
+  [[blocks.segments]]
+    template = "via <b><yellow> v{{ .Full }}</></b>"
+    foreground = 'white'
+    background = 'transparent'
+    type = 'zig'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.zig', '*.zon' ]
+

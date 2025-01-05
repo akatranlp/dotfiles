@@ -1,0 +1,114 @@
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+version = 3
+final_space = true
+
+[secondary_prompt]
+  template = '❯❯ '
+  foreground = 'magenta'
+  background = 'transparent'
+
+[transient_prompt]
+  template = '❯ '
+  background = 'transparent'
+  foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = '{{ .Path }}'
+    foreground = 'blue'
+    background = 'transparent'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      style = 'full'
+
+  [[blocks.segments]]
+    template = ' <b>{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}</b> '
+    foreground = 'magenta'
+    background = 'transparent'
+    foreground_templates = [
+      '{{ if or (.Working.Changed) (.Staging.Changed) }}#c4a000{{ end }}',
+      '{{ if and (gt .Ahead 0) (gt .Behind 0) }}#f26d50{{ end }}',
+      '{{ if gt .Ahead 0 }}#89d1dc{{ end }}',
+      '{{ if gt .Behind 0 }}#4e9a06{{ end }}'
+    ]
+
+    syle = 'plain'
+    type = 'git'
+
+    [blocks.segments.properties]
+      branch_icon = ' '
+      fetch_stash_count = true
+      fetch_status = true
+      fetch_upstream_icon = true
+
+
+  [[blocks.segments]]
+    template = "via <b><blue> {{ .Context }}</></b>"
+    foreground = 'white'
+    background = 'transparent'
+    type = 'docker'
+    style = 'plain'
+
+
+  [[blocks.segments]]
+    template = " via <b><cyan> v{{ .Full }}</></b> "
+    foreground = 'white'
+    background = 'transparent'
+    type = 'go'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.go', 'go.mod', 'go.work' ]
+
+
+[[blocks]]
+  type = 'rprompt'
+  overflow = 'hidden'
+
+  [[blocks.segments]]
+    template = '{{ .FormattedMs }}'
+    foreground = 'yellow'
+    background = 'transparent'
+    type = 'executiontime'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      style = 'round'
+      cache_duration = 'none'
+      threshold = 5000
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = '❯'
+    background = 'transparent'
+    type = 'text'
+    style = 'plain'
+    foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+
+[[tooltips]]
+  tips = [ 'k', 'kubectl', 'kubectx', 'kustomize', 'helm' ]
+  template = '<b>ﴱ {{ .Context }}{{ if and .Namespace (ne .Namespace "default") }}::{{ .Namespace }}{{ end }}</b>'
+  foreground = 'cyan'
+  background = 'transparent'
+  type = 'kubectl'
+  style = 'plain'
+
+  [tooltips.properties.context_aliases]
+    'minikube' = 'local'
+
