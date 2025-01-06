@@ -17,11 +17,10 @@
 
     [blocks.segments.properties]
       style = 'agnoster_short'
-      max_depth = 2
-      folder_icon = '...'
+      folder_icon = '..'
 
       [blocks.segments.properties.mapped_locations]
-        '~/projects' = ''
+        '~/projects' = ' '
 
 
   # Sudo segment

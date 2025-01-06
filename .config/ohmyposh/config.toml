@@ -18,7 +18,7 @@ final_space = true
   newline = true
 
   [[blocks.segments]]
-    template = '{{ .Path }}'
+    template = '<b>{{ .Path }}</b>{{ if not .Writable }}🔒{{ end }}'
     foreground = 'blue'
     background = 'transparent'
     type = 'path'
@@ -26,7 +26,12 @@ final_space = true
 
     [blocks.segments.properties]
       cache_duration = 'none'
-      style = 'full'
+      style = 'agnoster_short'
+      max_depth = 1
+      folder_icon = '..'
+
+      [blocks.segments.properties.mapped_locations]
+        '~/projects' = ' '
 
   [[blocks.segments]]
     template = ' <b>{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}</b>'
@@ -38,19 +43,18 @@ final_space = true
       '{{ if gt .Ahead 0 }}#89d1dc{{ end }}',
       '{{ if gt .Behind 0 }}#4e9a06{{ end }}'
     ]
-
     syle = 'plain'
     type = 'git'
 
     [blocks.segments.properties]
-      branch_icon = ' '
+      branch_icon = ''
       fetch_stash_count = true
       fetch_status = true
       fetch_upstream_icon = true
 
 
   [[blocks.segments]]
-    template = "via <b><blue> {{ .Context }}</></b>"
+    template = " via <b><blue> {{ .Context }}</></b>"
     foreground = 'white'
     background = 'transparent'
     type = 'docker'
@@ -58,7 +62,7 @@ final_space = true
 
 
   [[blocks.segments]]
-    template = " via <b><cyan> v{{ .Full }}</></b> "
+    template = " via <b><cyan> v{{ .Full }}</></b>"
     foreground = 'white'
     background = 'transparent'
     type = 'go'
