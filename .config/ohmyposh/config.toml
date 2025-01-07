@@ -38,7 +38,8 @@ final_space = true
       folder_icon = '..'
 
       [blocks.segments.properties.mapped_locations]
-        '~/projects' = ' '
+        '~/projects' = '📦 '
+        '~/progeek/projects' = '🤓'
 
   [[blocks.segments]]
     template = ' <b>{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}<red>{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}</></b>'
@@ -55,9 +56,15 @@ final_space = true
 
     [blocks.segments.properties]
       branch_icon = ''
+      branch_identical_icon = ''
       fetch_stash_count = true
       fetch_status = true
       fetch_upstream_icon = true
+
+      [blocks.segments.properties.mapped_branches]
+        'feature/*' = '🚀'
+        'release/*' = '📦'
+        'hotfix/*' = '🔥'
 
   [[blocks.segments]]
     template = ' <white>via</> <b> {{ .Context }}</b>'
@@ -155,7 +162,7 @@ final_space = true
   overflow = 'hidden'
 
   [[blocks.segments]]
-    template = '{{ .FormattedMs }}'
+    template = '<white>took</> <b>{{ .FormattedMs }}</b>'
     foreground = 'yellow'
     background = 'transparent'
     type = 'executiontime'
@@ -171,12 +178,15 @@ final_space = true
   alignment = 'left'
   newline = true
 
-  [[blocks.segments]]
-    template = '{{ if .WSL }}WSL at {{ end }}{{.Icon}} '
-    foreground = 'white'
-    background = 'transparent'
-    type = 'os'
-    style = 'plain'
+  # [[blocks.segments]]
+  #   template = '{{ if .WSL }}WSL at {{ end }}{{.Icon}} '
+  #   foreground = 'white'
+  #   background = 'transparent'
+  #   type = 'os'
+  #   style = 'plain'
+  #
+  #   [blocks.segments.properties]
+  #     manjaro = ''
 
   [[blocks.segments]]
     template = '❯'
