@@ -2,8 +2,9 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
 version = 3
 final_space = true
 
-# next to do
-# docker, kubernetes, directory, os, git, execution time, status, character
+# $java\
+# $kotlin\
+# $terraform\
 
 # format = """
 # $username\

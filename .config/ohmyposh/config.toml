@@ -18,6 +18,13 @@ final_space = true
   newline = true
 
   [[blocks.segments]]
+    template = "{{ if .SSHSession }}<b> {{ .UserName }}@{{ .Hostname }}</b>{{ end }}"
+    foreground = 'yellow'
+    background = 'transparent'
+    type = 'session'
+    style = 'plain'
+
+  [[blocks.segments]]
     template = '<b>{{ .Path }}</b>{{ if not .Writable }}🔒{{ end }}'
     foreground = 'blue'
     background = 'transparent'
@@ -31,7 +38,7 @@ final_space = true
       folder_icon = '..'
 
       [blocks.segments.properties.mapped_locations]
-        '~/projects' = ' '
+        '~/projects' = ' '
 
   [[blocks.segments]]
     template = ' <b>{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}</b>'
@@ -52,18 +59,16 @@ final_space = true
       fetch_status = true
       fetch_upstream_icon = true
 
-
   [[blocks.segments]]
-    template = " via <b><blue> {{ .Context }}</></b>"
-    foreground = 'white'
+    template = ' <white>via</> <b> {{ .Context }}</b>'
+    foreground = 'blue'
     background = 'transparent'
     type = 'docker'
     style = 'plain'
 
-
   [[blocks.segments]]
-    template = " via <b><cyan> v{{ .Full }}</></b>"
-    foreground = 'white'
+    template = ' <white>via</> <b> v{{ .Full }}</b>'
+    foreground = 'cyan'
     background = 'transparent'
     type = 'go'
     style = 'plain'
@@ -72,10 +77,58 @@ final_space = true
       display_mode = 'context'
       extensions = [ '*.go', 'go.mod', 'go.work' ]
 
+  [[blocks.segments]]
+    template = ' <white>via</> <b> v{{ .Full }}</b>'
+    foreground_templates = [
+      '{{if not .Mismatch }}green{{end}}',
+      '{{if .Mismatch }}red{{end}}'
+    ]
+    background = 'transparent'
+    type = 'node'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.ts', '*.mts', '*.cts', '*.js', '*.mjs', '*.cjs', 'package.json', '.nvmrc', '.node-version' ]
+      folders = [ 'node_modules' ]
 
   [[blocks.segments]]
-    template = ' <b>  {{if eq .Output "0"}}loaded{{else if eq .Output "1"}}not loaded{{else}}denied{{ end }}</b>'
-    foreground = 'white'
+    template = ' <white>via</> <b>  v{{ .Full }}{{ if .Venv }}({{ .Venv }}){{ end }}</b>'
+    foreground = 'yellow'
+    background = 'transparent'
+    type = 'python'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.py', '*.ipynb', 'pyproject.toml', 'requirements.txt', 'setup.py', '.python-version' ]
+      folders = [ 'venv', '.venv' ]
+
+  [[blocks.segments]]
+    template = " <white>via</> <b> v{{ .Full }}</b>"
+    # template = " <white>via</> <b>🦀 v{{ .Full }}</b>"
+    foreground = 'red'
+    background = 'transparent'
+    type = 'rust'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.rs', 'Cargo.toml' ]
+
+  [[blocks.segments]]
+    template = ' <white>via</> <b> v{{ .Full }}</b>'
+    foreground = 'yellow'
+    background = 'transparent'
+    type = 'zig'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      display_mode = 'context'
+      extensions = [ '*.zig', '*.zon' ]
+
+  [[blocks.segments]]
+    template = ' <white>with</> <b>  {{if eq .Output "0"}}loaded{{else if eq .Output "1"}}not loaded{{else}}denied{{ end }}</b>'
     foreground_templates = [
       '{{if eq .Output "0"}}green{{end}}',
       '{{if eq .Output "1"}}cyan{{end}}',
@@ -88,6 +141,13 @@ final_space = true
     [blocks.segments.properties]
       shell = 'bash'
       script = '~/.config/ohmyposh/direnv.sh'
+
+  [[blocks.segments]]
+    #template = ''
+    foreground = 'white'
+    background = 'transparent'
+    type = 'root'
+    style = 'plain'
 
 
 [[blocks]]
@@ -104,12 +164,19 @@ final_space = true
     [blocks.segments.properties]
       style = 'round'
       cache_duration = 'none'
-      threshold = 5000
+      threshold = 2_000
 
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
   newline = true
+
+  [[blocks.segments]]
+    template = '{{ if .WSL }}WSL at {{ end }}{{.Icon}} '
+    foreground = 'white'
+    background = 'transparent'
+    type = 'os'
+    style = 'plain'
 
   [[blocks.segments]]
     template = '❯'
@@ -120,7 +187,6 @@ final_space = true
 
     [blocks.segments.properties]
       cache_duration = 'none'
-
 
 [[tooltips]]
   tips = [ 'k', 'kubectl', 'kubectx', 'kustomize', 'helm' ]
