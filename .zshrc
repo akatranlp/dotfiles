@@ -57,12 +57,14 @@ function b64d {
 }
 
 function toolsup {
+  pwd=$PWD
   cd ~/tools
   if [ -f patch.compose.yaml ]; then
     docker compose -f compose.yaml -f patch.compose.yaml up -d
   else
     docker compose up -d
   fi
+  cd $pwd
   return "$?"
 }
 
