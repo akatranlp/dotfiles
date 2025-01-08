@@ -1,6 +1,7 @@
 config-file = ?local-config
 
 window-padding-color = background
+window-padding-x = 6
 window-width = 150
 window-height = 40
 
