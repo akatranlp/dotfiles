@@ -86,7 +86,7 @@ final_space = true
       extensions = [ '*.go', 'go.mod', 'go.work' ]
 
   [[blocks.segments]]
-    template = ' <white>via</> <b> v{{ .Full }}</b>'
+    template = ' <white>via</> <b> {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}v{{ .Full }}</b>'
     foreground_templates = [
       '{{if not .Mismatch }}green{{end}}',
       '{{if .Mismatch }}red{{end}}'
@@ -96,6 +96,7 @@ final_space = true
     style = 'plain'
 
     [blocks.segments.properties]
+      fetch_package_manager = true
       display_mode = 'context'
       extensions = [ '*.ts', '*.mts', '*.cts', '*.js', '*.mjs', '*.cjs', 'package.json', '.nvmrc', '.node-version' ]
       folders = [ 'node_modules' ]
