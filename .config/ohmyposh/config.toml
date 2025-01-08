@@ -40,6 +40,7 @@ final_space = true
       [blocks.segments.properties.mapped_locations]
         '~/projects' = '📦 '
         '~/progeek/projects' = '🤓'
+        '~/projects/git-classrooms' = '   '
 
   [[blocks.segments]]
     template = ' <b>{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}<red>{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}</></b>'
@@ -112,8 +113,7 @@ final_space = true
       folders = [ 'venv', '.venv' ]
 
   [[blocks.segments]]
-    template = " <white>via</> <b> v{{ .Full }}</b>"
-    # template = " <white>via</> <b>🦀 v{{ .Full }}</b>"
+    template = " <white>via</> <b>🦀 v{{ .Full }}</b>"
     foreground = 'red'
     background = 'transparent'
     type = 'rust'
@@ -133,6 +133,19 @@ final_space = true
     [blocks.segments.properties]
       display_mode = 'context'
       extensions = [ '*.zig', '*.zon' ]
+
+  [[blocks.segments]]
+    template = '{{if eq .Output "0"}} <b> sops</b>{{ end }}'
+    foreground_templates = [
+      '{{if eq .Output "0"}}green{{end}}',
+    ]
+    background = 'transparent'
+    type = 'command'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      shell = 'bash'
+      script = '~/.config/ohmyposh/sops.sh'
 
   [[blocks.segments]]
     template = ' <white>with</> <b>  {{if eq .Output "0"}}loaded{{else if eq .Output "1"}}not loaded{{else}}denied{{ end }}</b>'
