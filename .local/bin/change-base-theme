@@ -2,7 +2,7 @@
 
 themes=("catppuccin-mocha" "nord")
 
-theme=$(printf '%s\n' ${themes[*]} | fzf)
+theme=$(printf '%s\n' ${themes[*]} | fzf --height="40%" --border --reverse)
 
 if [[ "$?" != "0" ]]; then
 	echo "You need to select a theme"
