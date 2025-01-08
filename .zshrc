@@ -68,21 +68,20 @@ function toolsup {
   return "$?"
 }
 
-dcontext () {
-        local host=$1
-        if [ -z "$1" ]; then
-                echo "specify one of the following contexts:"
-                docker context ls --format '{{.Name}}'
-                return 1
-        fi
+function dctx() {
+  if [ -n "$DOCKER_HOST" ]; then
+    unset DOCKER_HOST
+    return 0
+  fi
+  local host
+  host=$(docker context ls --format '{{.Name}}' | fzf --height="40%" --reverse --border)
+  if [ "$?" != "0" ]; then
+    echo "You need to select a context"
+    return 1
+  fi
 
-        if ! docker context inspect $host &>/dev/null; then
-                echo "context does not exist! Please provide one of the following contexts:"
-                docker context ls --format '{{.Name}}'
-                return 1
-        fi
-        echo "Using docker context $host temporarily"
-        export DOCKER_HOST=$(docker context inspect $host | yq '.[0].Endpoints.docker.Host')
+  echo "Using docker context $host temporarily"
+  export DOCKER_HOST=$(docker context inspect "$host" --format '{{.Endpoints.docker.Host}}')
 }
 # utils end
 
