@@ -18,7 +18,7 @@ final_space = true
   newline = true
 
   [[blocks.segments]]
-    template = "{{ if .SSHSession }}<b> {{ .UserName }}@{{ .Hostname }}</b>{{ end }}"
+    template = "{{ if .SSHSession }}<b> {{ .UserName }}@{{ .HostName }} </b>{{ end }}"
     foreground = 'yellow'
     background = 'transparent'
     type = 'session'
