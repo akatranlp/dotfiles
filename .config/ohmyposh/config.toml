@@ -67,6 +67,9 @@ final_space = true
         'release/*' = '📦'
         'hotfix/*' = '🔥'
 
+      [blocks.segments.properties.upstream_icons]
+        'git.progeek.de' = ' '
+
   [[blocks.segments]]
     template = ' <white>via</> <b> {{ .Context }}</b>'
     foreground = 'blue'
@@ -137,9 +140,7 @@ final_space = true
 
   [[blocks.segments]]
     template = '{{if eq .Output "0"}} <b> sops</b>{{ end }}'
-    foreground_templates = [
-      '{{if eq .Output "0"}}green{{end}}',
-    ]
+    foreground = '#FFC34D'
     background = 'transparent'
     type = 'command'
     style = 'plain'
