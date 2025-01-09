@@ -22,6 +22,7 @@ export SHELL="/bin/zsh"
 
 # alias
 alias la="ls -lAh"
+alias rm="trash"
 alias vim=nvim
 alias clr=clear
 
@@ -123,4 +124,9 @@ alias tpp-kill="pkill ngrok && tmux kill-sess -a"
 
 . $HOME/scripts/tpp_ssh_startup.sh
 # tmux pair programming end
+
+trashcount=$(trash-list | wc -l)
+if [ $trashcount -gt 0 ]; then
+  echo "\033[31m$trashcount item(s) in trash\033[0m"
+fi
 
