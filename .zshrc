@@ -1,17 +1,17 @@
 # local config
 if [ -f ~/.zshrc-local ]; then
-	. ~/.zshrc-local
+  . ~/.zshrc-local
 fi
 # local config end
 
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME=""
 plugins=(
-        git
-        direnv
-        zsh-autosuggestions
-        zsh-completions
-        zsh-syntax-highlighting
+  git
+  direnv
+  zsh-autosuggestions
+  zsh-completions
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -60,11 +60,11 @@ alias open="xdg-open"
 
 # utils
 function b64 {
- echo -n $1 | base64 -w0
+  echo -n $1 | base64 -w0
 }
 
 function b64d {
- echo -n $1 | base64 -d -w0
+  echo -n $1 | base64 -d -w0
 }
 
 function toolsup {
