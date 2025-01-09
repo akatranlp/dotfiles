@@ -21,6 +21,16 @@ export EDITOR='nvim'
 export SHELL="/bin/zsh"
 
 # alias
+function tmux() {
+  local bin
+  bin="/usr/bin/tmux"
+  if [ ${#@} -gt 0 ]; then
+    $bin $@
+  else
+    $bin attach 2>/dev/null || $bin new -s "$USER"
+  fi
+}
+
 alias la="ls -lAh"
 alias rm="trash"
 alias vim=nvim
@@ -124,6 +134,10 @@ alias tpp-kill="pkill ngrok && tmux kill-sess -a"
 
 . $HOME/scripts/tpp_ssh_startup.sh
 # tmux pair programming end
+
+if [ -z "$TMUX" ]; then
+  tmux
+fi
 
 trashcount=$(trash-list | wc -l)
 if [ $trashcount -gt 0 ]; then
