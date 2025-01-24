@@ -43,7 +43,7 @@ final_space = true
         '~/projects/git-classrooms' = '   '
 
   [[blocks.segments]]
-    template = ' <b>{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}<red>{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}</></b>'
+    template = ' <b>{{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}<red>{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}</></b>'
     foreground = 'magenta'
     background = 'transparent'
 #     foreground_templates = [
@@ -58,6 +58,9 @@ final_space = true
     [blocks.segments.properties]
       branch_icon = ''
       branch_identical_icon = ''
+      branch_gone_icon = ''
+
+      tag_icon = '  '
       fetch_stash_count = true
       fetch_status = true
       fetch_upstream_icon = true
@@ -68,7 +71,7 @@ final_space = true
         'hotfix/*' = '🔥'
 
       [blocks.segments.properties.upstream_icons]
-        'git.progeek.de' = ' '
+        'git.progeek.de' = ''
 
   [[blocks.segments]]
     template = ' <white>via</> <b> {{ .Context }}</b>'
