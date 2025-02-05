@@ -126,8 +126,6 @@ eval "$(zoxide init zsh)"
 
 . <(fzf --zsh)
 
-. /opt/asdf-vm/asdf.sh
-
 # tmux pair programming
 alias tpp="$HOME/scripts/tpp_startup.sh"
 alias tpp-kill="pkill ngrok && tmux kill-sess -a"
