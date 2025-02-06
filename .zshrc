@@ -68,15 +68,25 @@ function b64d {
 }
 
 function toolsup {
-  pwd=$PWD
+  local pwd=$PWD
   cd ~/tools
   if [ -f patch.compose.yaml ]; then
     docker compose -f compose.yaml -f patch.compose.yaml up -d
   else
     docker compose up -d
   fi
+  local ret="$?"
   cd $pwd
-  return "$?"
+  return $ret
+}
+
+function dbcon {
+  local pwd=$PWD
+  cd ~/tools
+  docker compose exec -it postgres psql -d postgres -U postgres
+  local ret="$?"
+  cd $pwd
+  return $ret
 }
 
 function dctx() {
