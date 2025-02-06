@@ -11,7 +11,6 @@ return {
     config = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
-      vim.cmd.colorscheme 'catppuccin'
       require('catppuccin').setup {
         transparent_background = vim.g.transparent_enabled,
         integrations = {
@@ -21,13 +20,18 @@ return {
           treesitter = true,
           harpoon = true,
           mason = true,
+          dadbod_ui = true,
+          which_key = true,
         },
       }
 
+      vim.cmd.colorscheme 'catppuccin'
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
   },
-  'xiyaowong/transparent.nvim',
-  lazy = false,
+  {
+    'xiyaowong/transparent.nvim',
+    lazy = false,
+  },
 }
