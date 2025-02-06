@@ -14,6 +14,4 @@ vim.api.nvim_create_user_command('Q', 'q', {})
 -- kubernetes secrets
 vim.keymap.set('n', 'sen', "<cmd>%!yq -e '.data = (.data | withEntries(.value = (.value | @base64)))'<cr>", { desc = 'Encrypt k8s base64 keys' })
 
-print 'Hello'
-
 vim.keymap.set('n', 'sde', "<cmd>%!yq -e '.data = (.data | withEntries(.value = (.value | @base64d)))'<cr>", { desc = 'Decrypt k8s base64 keys' })
