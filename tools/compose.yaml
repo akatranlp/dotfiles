@@ -34,6 +34,21 @@ services:
       - "traefik.http.routers.dozzle.rule=Host(`dozzle.localhost`)"
       - "traefik.http.routers.dozzle.entrypoints=web"
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.1.2
+    container_name: keycloak
+    command:
+      - start-dev
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=$KC_USER
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=$KC_PASSWORD
+    ports:
+      - 8080:8080
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.keycloak.rule=Host(`auth.localhost`)"
+      - "traefik.http.routers.keycloak.entrypoints=web"
+
   traefik:
     image: traefik:latest
     container_name: traefik
@@ -45,7 +60,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entryPoints.web.address=:80"
     ports:
-      - "127.0.0.1:8080:8080/tcp"
+      # - "127.0.0.1:8080:8080/tcp"
       - "127.0.0.1:80:80/tcp"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
