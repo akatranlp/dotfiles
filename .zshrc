@@ -104,6 +104,18 @@ function dctx() {
   echo "Using docker context $host temporarily"
   export DOCKER_HOST=$(docker context inspect "$host" --format '{{.Endpoints.docker.Host}}')
 }
+
+function nasmount() {
+  if ! [ -d "$HOME/mnt/home" ]; then
+    mkdir -p $HOME/mnt/home
+  fi
+
+  sudo mount -t cifs -o credentials=$HOME/.smbcredentials/homenas,uid=`id -u`,gid=`id -g`,vers=3.1.1,file_mode=0660,dir_mode=0770,iocharset=utf8,nofail //192.168.20.200/home $HOME/mnt/home
+}
+
+function nasumount() {
+  sudo umount $HOME/mnt/home
+}
 # utils end
 
 export PATH="$HOME/.turso:$PATH"
