@@ -167,6 +167,8 @@ return {
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
 
+      templ = {},
+
       lua_ls = {
         -- cmd = { ... },
         filetypes = { 'lua' },
@@ -199,6 +201,18 @@ return {
               rangeVariableTypes = true,
             },
           },
+        },
+      },
+
+      html = {
+        settings = {
+          filetypes = { 'html', 'templ' },
+        },
+      },
+
+      htmx = {
+        settings = {
+          filetypes = { 'html', 'templ' },
         },
       },
       -- Some languages (like typescript) have entire language plugins that can be useful:
