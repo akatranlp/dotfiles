@@ -207,6 +207,12 @@ final_space = true
   #     manjaro = ''
 
   [[blocks.segments]]
+    type = "battery"
+    foreground = 'red'
+    background = 'transparent'
+    template = '{{ if and (not .Error) (lt .Percentage 11) (eq .State.String "Discharging") }}🚨 {{ .Percentage }}% {{ end }}'
+
+  [[blocks.segments]]
     template = '❯'
     background = 'transparent'
     type = 'text'
