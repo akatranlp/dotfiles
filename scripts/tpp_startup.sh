@@ -98,7 +98,7 @@ echo "$clip" | xclip -sel c
 if [ -z "$TMUX" ]; then
 	# not in tmux
 	echo "$USER" > /tmp/tpp_session_name
-	tmux attach -A -s "$USER"
+	tmux new-session -A -s "$USER"
 else
 	# already in tmux
 	tmux display-message -p '#S' > /tmp/tpp_session_name
