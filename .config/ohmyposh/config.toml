@@ -41,6 +41,7 @@ final_space = true
         '~/projects' = '📦 '
         '~/progeek/projects' = '🤓'
         '~/projects/git-classrooms' = '   '
+        '~/projects/green-ecolution/streamlet' = '🍃streamlet'
 
   [[blocks.segments]]
     template = ' <b>{{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}<red>{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}</></b>'
