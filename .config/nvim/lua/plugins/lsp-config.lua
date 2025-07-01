@@ -255,6 +255,8 @@ return {
         },
       },
       marksman = {},
+      pylsp = {},
+      kotlin_language_server = {},
     }
 
     -- Ensure the servers and tools above are installed
