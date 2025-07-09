@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+secretPath="$1"
+
+function usage() {
+	echo "Usage $0 <path to bao postgres secret>"
+	echo ""
+	echo "    The secret must have the fields USER, PASSWORD, DB"
+}
+
+if [ -z "$secretPath" ]; then
+	usage
+	exit 1
+fi
+
+password=$(bao kv get -field PASSWORD "$secretPath")
+username=$(bao kv get -field USER "$secretPath")
+db=$(bao kv get -field DB "$secretPath")
+
+if [ -z "$username" ] || [ -z "$password" ] || [ -z "$db" ]; then
+	echo "the fields of the secret are not correct"
+	echo ""
+	usage
+	exit 1
+fi
+
+PGPASSWORD="$password" psql -U "$username" -h localhost -p 5432 -d "$db"

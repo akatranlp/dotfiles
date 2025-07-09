@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+action=$(cat /etc/systemd/logind.conf | grep HandleLidSwitchExternalPower | cut -d '=' -f 2)
+
+if [ "$action" == "suspend" ]; then
+	sudo sed -i 's/HandleLidSwitchExternalPower=suspend/HandleLidSwitchExternalPower=ignore/' /etc/systemd/logind.conf
+elif [ "$action" == "ignore" ]; then
+	sudo sed -i 's/HandleLidSwitchExternalPower=ignore/HandleLidSwitchExternalPower=suspend/' /etc/systemd/logind.conf
+else
+	echo "Action $action not currently supported! Exiting..."
+	exit 1
+fi
+
+sudo systemctl reload systemd-logind
+
