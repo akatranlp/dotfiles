@@ -91,6 +91,10 @@ function dbcon {
 
 function dctx() {
   if [ -n "$DOCKER_HOST" ]; then
+    unset DOCKER_TLS_VERIFY
+    unset DOCKER_HOST
+    unset DOCKER_CERT_PATH
+    unset MINIKUBE_ACTIVE_DOCKERD
     unset DOCKER_HOST
     return 0
   fi
