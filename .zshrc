@@ -54,7 +54,13 @@ alias dvp='docker volume prune'
 
 alias ssh="TERM=xterm-256color ssh"
 
-alias clip="xclip -sel c"
+function clip() {
+  if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    wl-copy
+  else
+    xclip -sel c
+  fi
+}
 alias open="xdg-open"
 # alias end
 
@@ -131,6 +137,8 @@ export PATH="$(go env GOPATH)/bin:$PATH"
 export PATH="$HOME/.local/share/fnm:$PATH"
 eval "`fnm env --use-on-cd --corepack-enabled`"
 # fnm end
+
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # yarn pnpm
 export PATH="$(yarn global bin):$PATH"
