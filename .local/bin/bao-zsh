@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+secretPath="$1"
+prefix="$2"
+
+function usage() {
+	echo "Usage $0 <path to bao secret> <prefix>"
+}
+
+if [ -z "$secretPath" ] || [ -z "$prefix" ]; then
+	usage
+	exit 1
+fi
+
+export prefix
+eval $(bao kv get --format=yaml "$secretPath" | yq '.data.data | to_entries | map( "export " + strenv(prefix) + "_\(.key)=\(.value)" ) | .[]')
+unset prefix
+
+zsh
+

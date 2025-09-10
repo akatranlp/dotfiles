@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+DOTENV=${DOTENV:-.env}
+
+set -o allexport
+. "$DOTENV"
+set +o allexport
+
+exec "$@"
