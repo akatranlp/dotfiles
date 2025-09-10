@@ -1,6 +1,7 @@
 services:
   "git.progeek.de:2222": "gitea:git.progeek.de"
   "gitlab.git-classrooms.dev:2222": "gitlab:gitlab.git-classrooms.dev"
+  "gitlab.progeek.de:2200": "gitlab:gitlab.progeek.de"
 
 git:
   overrideGpg: true
