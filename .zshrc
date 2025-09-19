@@ -4,6 +4,11 @@ if [ -f ~/.zshrc-local ]; then
 fi
 # local config end
 
+unalias run-help
+autoload run-help
+HELPDIR=/usr/share/zsh/"${ZSH_VERSION}"/help
+alias help=run-help
+
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME=""
 plugins=(
@@ -116,16 +121,23 @@ function dctx() {
 }
 
 function nasmount() {
-  if ! [ -d "$HOME/mnt/home" ]; then
-    mkdir -p $HOME/mnt/home
-  fi
+  local dirs=("home" "data" "daten" "scaninput")
 
-  sudo mount -t cifs -o credentials=$HOME/.smbcredentials/homenas,uid=`id -u`,gid=`id -g`,vers=3.1.1,file_mode=0660,dir_mode=0770,iocharset=utf8,nofail //192.168.20.200/home $HOME/mnt/home
+  for dir in "${dirs[@]}"; do
+    if [[ ! -d "$HOME/mnt/$dir" ]]; then
+      mkdir -p "$HOME/mnt/$dir"
+    fi
+    if mountpoint -q "$HOME/mnt/$dir"; then
+      echo "$dir is mounted. Unmounting..."
+      sudo umount -R "$HOME/mnt/$dir"
+    else
+      echo "$dir is not mounted. Mounting..."
+      sudo mount -t cifs -o credentials=$HOME/.smbcredentials/homenas,uid=`id -u`,gid=`id -g`,vers=3.1.1,file_mode=0660,dir_mode=0770,iocharset=utf8,nofail //nas01-30.akatran.local/$dir $HOME/mnt/$dir
+    fi
+
+  done
 }
 
-function nasumount() {
-  sudo umount $HOME/mnt/home
-}
 # utils end
 
 export PATH="$HOME/.turso:$PATH"
