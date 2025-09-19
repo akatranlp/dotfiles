@@ -6,9 +6,15 @@
 
 # Autostart
 
+include catppuccin-mocha
+
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id swww-daemon
 exec --no-startup-id swww img ~/Bilder/wallpaper.jpg
+# exec --no-startup-id eval $(ssh-agent)
+# exec --no-startup-id ssh-add ~/.ssh/id_yubikey_main
+# exec --no-startup-id ssh-add ~/.ssh/id_yubikey_backup
+exec --no-startup-id synology-drive
 
 ### Variables
 #
@@ -19,6 +25,8 @@ set $left h
 set $down j
 set $up k
 set $right l
+
+set $browser zen-browser
 # Your preferred terminal emulator
 set $term ghostty
 # Your preferred application launcher
@@ -36,17 +44,42 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-output 'Acer Technologies XB271HU #ASPI/Ynk0ezd' mode 2560x1440@165Hz
-output 'Acer Technologies XB271HU #ASPI/Ynk0ezd' pos 1920 0
-workspace 1 output 'Acer Technologies XB271HU #ASPI/Ynk0ezd'
+set $monitorL 'BNQ BenQ GW2480 86L0232101Q'
+set $monitorM 'Acer Technologies XB271HU #ASPI/Ynk0ezd'
+set $monitorR 'BNQ BenQ GW2480 M1M0582401Q'
+set $monitorDummy 'BNQ High Rate240 0x00005445'
 
-output 'BNQ BenQ GW2480 86L0232101Q' mode 1920x1080@60Hz
-output 'BNQ BenQ GW2480 86L0232101Q' pos 0 350
-workspace 2 output 'BNQ BenQ GW2480 86L0232101Q'
+output $monitorL mode 1920x1080@60Hz
+output $monitorL pos 0 360
 
-output 'BNQ BenQ GW2480 M1M0582401Q' mode 1920x1080@60Hz
-output 'BNQ BenQ GW2480 M1M0582401Q' pos 4480 350
-workspace 3 output 'BNQ BenQ GW2480 M1M0582401Q'
+output $monitorM mode 2560x1440@165Hz
+output $monitorM pos 1920 0
+
+output $monitorR mode 1920x1080@60Hz
+output $monitorR pos 4480 360
+
+output $monitorDummy disable
+
+set $main "1"
+set $discord "2: discord"
+set $web "3: web"
+set $windows "5: windows"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+workspace $discord output $monitorL
+workspace $main output $monitorM
+workspace $windows output $monitorM
+workspace $web output $monitorR
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+for_window [class=".*"] inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
 
 ### Idle configuration
 #
@@ -76,10 +109,13 @@ exec swayidle -w \
       xkb_layout "us"
       xkb_variant "altgr-intl"
       xkb_options "caps:escape"
+      xkb_numlock enabled
   }
 #
 # You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.
+
+# font pango:"JetBrainsMono Nerd Font" 10
 
 ### Key bindings
 #
@@ -106,6 +142,8 @@ exec swayidle -w \
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+    bindsym $mod+Alt+l exec swaylock
 #
 # Moving around:
 #
@@ -230,7 +268,19 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
-    bindsym Print exec grim
+    # bindsym Print exec 'grim -g "$(swaymsg -t get_tree | jq -r 'recurse(.nodes[]?, .floating_nodes[]?) | select(.visible or (.type == "output" and .active)) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -r)"'
+    bindsym Print exec grimshot --notify savecopy anything
+
+#
+# Colors:
+#
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $rosewater $lavender
+client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
 
 #
 # Status Bar:
@@ -244,10 +294,18 @@ bar {
     status_command while date +'%Y-%m-%d %X'; do sleep 1; done
 
     colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        background         $base
+        statusline         $text
+        focused_statusline $text
+        focused_separator  $base
+
+        # target           border bg        text
+        focused_workspace  $base  $mauve    $crust
+        active_workspace   $base  $surface2 $text
+        inactive_workspace $base  $base     $text
+        urgent_workspace   $base  $red      $crust
     }
+    # font pango:"JetBrainsMono Nerd Font" 10
 }
 
 include /etc/sway/config.d/*
