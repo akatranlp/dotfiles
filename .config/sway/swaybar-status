@@ -1,0 +1,201 @@
+#!/usr/bin/env bash
+
+if [[ -t 0 ]]; then
+	is_terminal="true"
+else
+	is_terminal="false"
+fi
+
+get_current_volume() {
+	local mute vol icon
+	mute=$(pactl get-sink-mute \@DEFAULT_SINK@ | sed 's/Mute: //')
+	vol=$(pactl get-sink-volume \@DEFAULT_SINK@ | sed -r 's$.*/ ([ 0-9]+)% /.*$\1$g' | head -n 1)
+
+	if [[ $mute == "yes" ]]; then
+		icon=" "
+	elif (( vol < 33 )); then
+		icon=" "
+	elif (( vol < 67 )); then
+		icon=" "
+	else
+		icon=" "
+	fi
+
+	echo -n "$vol% $icon" |
+		# bold_wrap |
+		cat
+}
+
+get_date() {
+	local datetime
+	datetime=$(date +'%x %X')
+	echo -n "$datetime" |
+		# bold_wrap |
+		cat
+}
+
+get_ipv4() {
+	local ip4
+	ip4=$(ip a show dev vmbr2 | grep "inet " | cut -d ' ' -f 6)
+	echo -n "$ip4" |
+		# bold_wrap |
+		cat
+}
+
+get_neovim() {
+	echo -n " neovim lover <3" |
+		escape_html |
+		color_wrap "#ff5555" |
+		# italic_wrap | 
+		# strikethrough_wrap |
+		# underline_wrap | 
+		bold_wrap |
+		cat
+
+}
+
+main() {
+	local ip=$(get_ipv4)
+	local vol=$(get_current_volume)
+	local date=$(get_date)
+	local neovim=$(get_neovim)
+
+	if "$is_terminal"; then
+		echo -n '    '
+	fi
+	echo -n "$neovim | $ip | $vol | $date"
+}
+
+escape_html() {
+	local text="$1"
+	if [[ -z $text ]]; then
+		text=$(cat)
+	fi
+	if "$is_terminal"; then
+		echo -n "$text"
+	else
+		echo -n "$text" | sed 's/</\&lt;/g ; s/>/\&gt;/g'
+	fi
+}
+
+color_start() {
+	local foreground=$1
+	local background=$2
+	if "$is_terminal"; then
+		printf '\033[38;2;%s;%s;%sm' $((16#${foreground:1:2})) $((16#${foreground:3:2})) $((16#${foreground:5:2}))
+		if [[ -n $background ]]; then
+			printf '\033[48;2;%s;%s;%sm' $((16#${background:1:2})) $((16#${background:3:2})) $((16#${background:5:2}))
+		fi
+	else
+		printf '<span foreground="%s" ' "$foreground"
+		if [[ -n $background ]]; then
+			printf 'background="%s" ' "$background"
+		fi
+		printf '>'
+	fi
+}
+
+color_end() {
+	if "$is_terminal"; then
+		printf '\033[39m\033[49m'
+	else
+		printf '</span>'
+	fi
+}
+
+color_wrap() {
+	color_start "$1" "$2"
+	cat
+	color_end
+}
+
+bold_start() {
+	if "$is_terminal"; then
+		printf '\033[1m'
+	else
+		printf '<b>'
+	fi
+}
+
+bold_end() {
+	if "$is_terminal"; then
+		printf '\033[22m'
+	else
+		printf '</b>'
+	fi
+}
+
+bold_wrap() {
+	bold_start
+	cat
+	bold_end
+}
+
+underline_start() {
+	if "$is_terminal"; then
+		printf '\033[4m'
+	else
+		printf '<u>'
+	fi
+}
+
+underline_end() {
+	if "$is_terminal"; then
+		printf '\033[24m'
+	else
+		printf '</u>'
+	fi
+}
+
+underline_wrap() {
+	underline_start
+	cat
+	underline_end
+}
+
+italic_start() {
+	if "$is_terminal"; then
+		printf '\033[3m'
+	else
+		printf '<i>'
+	fi
+}
+
+italic_end() {
+	if "$is_terminal"; then
+		printf '\033[23m'
+	else
+		printf '</i>'
+	fi
+}
+
+italic_wrap() {
+	italic_start
+	cat
+	italic_end
+}
+
+strikethrough_start() {
+	if "$is_terminal"; then
+		printf '\033[9m'
+	else
+		printf '<s>'
+	fi
+}
+
+strikethrough_end() {
+	if "$is_terminal"; then
+		printf '\033[29m'
+	else
+		printf '</s>'
+	fi
+}
+
+strikethrough_wrap() {
+	strikethrough_start
+	cat
+	strikethrough_end
+}
+
+main
+
