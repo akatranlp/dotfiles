@@ -7,8 +7,9 @@ window-height = 40
 
 theme = catppuccin-mocha
 window-theme = ghostty
-title = "Moin 🧃"
 background-opacity = 0.95
+# title = "Moin 🧃"
+shell-integration = none
 # window-decoration = false
 
 font-family = "JetBrains Mono"

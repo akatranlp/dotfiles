@@ -19,6 +19,7 @@ plugins=(
   zsh-syntax-highlighting
 )
 
+DISABLE_AUTO_TITLE="true"
 source $ZSH/oh-my-zsh.sh
 export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH"
 
@@ -137,6 +138,12 @@ function nasmount() {
 
   done
 }
+
+function title() {
+  printf '\ePtmux;\e\e]2;%s\a\e\\' "$1"
+}
+
+[[ -z $TMUX ]] && title "Moin 🧃"
 
 # utils end
 
