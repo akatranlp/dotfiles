@@ -88,6 +88,10 @@ for_window [window_role="task_dialog"] floating enable
 for_window [class=".*"] inhibit_idle fullscreen
 for_window [app_id=".*"] inhibit_idle fullscreen
 
+# Graphics tablet map to middle monitor
+input type:tablet_tool map_to_output $monitorM
+input type:tablet_pad map_to_output $monitorM
+
 ### Idle configuration
 #
 # Example configuration:
