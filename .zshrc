@@ -143,6 +143,10 @@ function title() {
   printf '\ePtmux;\e\e]2;%s\a\e\\' "$1"
 }
 
+function notify() {
+  printf '\ePtmux;\e\e]9;%s\e\\' "$1"
+}
+
 [[ -z $TMUX ]] && title "Moin 🧃"
 
 # utils end
