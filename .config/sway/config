@@ -281,7 +281,8 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
     # bindsym Print exec 'grim -g "$(swaymsg -t get_tree | jq -r 'recurse(.nodes[]?, .floating_nodes[]?) | select(.visible or (.type == "output" and .active)) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -r)"'
-    bindsym Print exec grimshot --notify savecopy anything
+    bindsym Print exec 'grimshot save output - | imv -f -'
+    bindsym $mod+Shift+s exec grimshot --notify savecopy anything
 
 #
 # Colors:
