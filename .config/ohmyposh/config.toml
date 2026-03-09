@@ -32,13 +32,13 @@ final_space = true
     type = 'path'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       cache_duration = 'none'
       style = 'agnoster_short'
       max_depth = 1
       folder_icon = '..'
 
-      [blocks.segments.properties.mapped_locations]
+      [blocks.segments.options.mapped_locations]
         '~/projects' = '📦 '
         '~/progeek/projects' = '🤓'
         '~/projects/git-classrooms' = '   '
@@ -57,7 +57,7 @@ final_space = true
     syle = 'plain'
     type = 'git'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       branch_icon = ''
       branch_identical_icon = ''
       branch_gone_icon = ''
@@ -67,13 +67,14 @@ final_space = true
       fetch_status = true
       fetch_upstream_icon = true
 
-      [blocks.segments.properties.mapped_branches]
+      [blocks.segments.options.mapped_branches]
         'feature/*' = '🚀'
         'release/*' = '📦'
         'hotfix/*' = '🔥'
 
-      [blocks.segments.properties.upstream_icons]
+      [blocks.segments.options.upstream_icons]
         'git.progeek.de' = ''
+        'gitlab.progeek.de' = ''
 
   [[blocks.segments]]
     template = ' <white>via</> <b> {{ .Context }}</b>'
@@ -89,7 +90,7 @@ final_space = true
     type = 'go'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       display_mode = 'context'
       extensions = [ '*.go', 'go.mod', 'go.work' ]
 
@@ -103,7 +104,7 @@ final_space = true
     type = 'node'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       fetch_package_manager = true
       display_mode = 'context'
       extensions = [ '*.ts', '*.mts', '*.cts', '*.js', '*.mjs', '*.cjs', 'package.json', '.nvmrc', '.node-version' ]
@@ -116,7 +117,7 @@ final_space = true
     type = 'python'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       display_mode = 'context'
       extensions = [ '*.py', '*.ipynb', 'pyproject.toml', 'requirements.txt', 'setup.py', '.python-version' ]
       folders = [ 'venv', '.venv' ]
@@ -128,7 +129,7 @@ final_space = true
     type = 'rust'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       display_mode = 'context'
       extensions = [ '*.rs', 'Cargo.toml' ]
 
@@ -139,7 +140,7 @@ final_space = true
     type = 'zig'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       display_mode = 'context'
       extensions = [ '*.zig', '*.zon' ]
 
@@ -150,7 +151,7 @@ final_space = true
     type = 'command'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       shell = 'bash'
       script = '~/.config/ohmyposh/sops.sh'
 
@@ -165,7 +166,7 @@ final_space = true
     type = 'command'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       shell = 'bash'
       script = '~/.config/ohmyposh/direnv.sh'
 
@@ -188,7 +189,7 @@ final_space = true
     type = 'executiontime'
     style = 'plain'
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       style = 'round'
       cache_duration = 'none'
       threshold = 2_000
@@ -205,7 +206,7 @@ final_space = true
   #   type = 'os'
   #   style = 'plain'
   #
-  #   [blocks.segments.properties]
+  #   [blocks.segments.options]
   #     manjaro = ''
 
   [[blocks.segments]]
@@ -221,7 +222,7 @@ final_space = true
     style = 'plain'
     foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
 
-    [blocks.segments.properties]
+    [blocks.segments.options]
       cache_duration = 'none'
 
 [[tooltips]]
@@ -232,8 +233,8 @@ final_space = true
   type = 'kubectl'
   style = 'plain'
 
-  [tooltips.properties.context_aliases]
+  [tooltips.options.context_aliases]
     'minikube' = 'local'
-    'fpetersen@progeek-production-cluster' = '🚨🚨 progeek-prod'
-    'fpetersen@progeek-staging-cluster' = 'progeek-stage'
+    'fpetersen@progeek-production' = '🚨🚨 progeek-prod'
+    'fpetersen@progeek-staging' = 'progeek-stage'
 
