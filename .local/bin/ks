@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+KUBECONFIG=${KUBECONFIG:-~/.kube/config}
+KUBECONFIG=${KUBECONFIG%%:*}
+
+context_name=$1
+
+[[ -z $context_name ]] && context_name=${ kubectl config current-context; }
+kubectl config get-contexts "$context_name" &>/dev/null || exit 1
+
+context=${ cat "$KUBECONFIG" | yq '.contexts | filter(.name == "'"$context_name"'")'; }
+
+cluster_name=${ echo "$context" | yq '.[0].context.cluster'; }
+cluster=${ cat "$KUBECONFIG" | yq '.clusters | filter(.name == "'"$cluster_name"'")'; }
+
+user_name=${ echo "$context" | yq '.[0].context.user'; }
+user=${ cat "$KUBECONFIG" | yq '.users | filter(.name == "'"$user_name"'")'; }
+
+cat <<-EOF
+apiVersion: v1
+current-context: $context_name
+kind: Config
+clusters:
+$cluster
+contexts:
+$context
+users:
+$user
+EOF
+
