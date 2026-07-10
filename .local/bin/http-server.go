@@ -12,11 +12,13 @@ import (
 
 func main() {
 	proxy := flag.String("proxy", "", "Proxy specified path to address [/api:http://localhost:3000]")
+	port := flag.Int("port", 8000, "port which the server is running on")
 	flag.Parse()
 
+	listenAddress := fmt.Sprintf(":%d", *port)
 	if *proxy == "" {
-		fmt.Println("Listening on 0.0.0.0:8000")
-		if err := http.ListenAndServe(":8000", http.FileServer(http.Dir("."))); err != nil {
+		fmt.Printf("Listening on %s\n", listenAddress)
+		if err := http.ListenAndServe(listenAddress, http.FileServer(http.Dir("."))); err != nil {
 			panic(err)
 		}
 	}
@@ -35,8 +37,8 @@ func main() {
 	}
 	mux.Handle(fmt.Sprintf("%s/", path), httputil.NewSingleHostReverseProxy(target))
 	mux.Handle("/", http.FileServer(http.Dir(".")))
-	fmt.Println("Listening on 0.0.0.0:8000")
-	if err := http.ListenAndServe(":8000", mux); err != nil {
+	fmt.Printf("Listening on %s\n", listenAddress)
+	if err := http.ListenAndServe(listenAddress, mux); err != nil {
 		panic(err)
 	}
 }
