@@ -165,7 +165,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # yarn pnpm
 export PATH="$(yarn global bin):$PATH"
-export PATH="$HOME/.local/share/pnpm:$PATH"
+export PATH="$HOME/.local/share/pnpm/bin:$PATH"
 # yarn pnpm end
 
 # bat
@@ -183,6 +183,11 @@ eval "$(zoxide init zsh)"
 
 . <(fzf --zsh)
 
+function set_poshcontext() {
+    export POSH_DIRENV_ALLOW=$(~/.config/ohmyposh/direnv.sh)
+    export POSH_SOPS=$(~/.config/ohmyposh/sops.sh)
+}
+
 # tmux pair programming
 alias tpp="$HOME/scripts/tpp_startup.sh"
 alias tpp-kill="pkill ngrok && tmux kill-sess -a"
@@ -195,5 +200,13 @@ if [ $trashcount -gt 0 ]; then
   echo "\033[31m$trashcount item(s) in trash\033[0m"
 fi
 
-echo -n "CiAg4paI4paI4paI4paI4paI4pWXIOKWiOKWiOKVlyAg4paI4paI4pWXIOKWiOKWiOKWiOKWiOKWiOKVlyDilojilojilojilojilojilojilojilojilZfilojilojilojilojilojilojilZcgIOKWiOKWiOKWiOKWiOKWiOKVlyDilojilojilojilZcgICDilojilojilZcKIOKWiOKWiOKVlOKVkOKVkOKWiOKWiOKVl+KWiOKWiOKVkSDilojilojilZTilZ3ilojilojilZTilZDilZDilojilojilZfilZrilZDilZDilojilojilZTilZDilZDilZ3ilojilojilZTilZDilZDilojilojilZfilojilojilZTilZDilZDilojilojilZfilojilojilojilojilZcgIOKWiOKWiOKVkQog4paI4paI4paI4paI4paI4paI4paI4pWR4paI4paI4paI4paI4paI4pWU4pWdIOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKVkSAgIOKWiOKWiOKVkSAgIOKWiOKWiOKWiOKWiOKWiOKWiOKVlOKVneKWiOKWiOKWiOKWiOKWiOKWiOKWiOKVkeKWiOKWiOKVlOKWiOKWiOKVlyDilojilojilZEKIOKWiOKWiOKVlOKVkOKVkOKWiOKWiOKVkeKWiOKWiOKVlOKVkOKWiOKWiOKVlyDilojilojilZTilZDilZDilojilojilZEgICDilojilojilZEgICDilojilojilZTilZDilojilojilZcg4paI4paI4pWU4pWQ4pWQ4paI4paI4pWR4paI4paI4pWR4pWa4paI4paI4pWX4paI4paI4pWRCiDilojilojilZEgIOKWiOKWiOKVkeKWiOKWiOKVkSAg4paI4paI4pWX4paI4paI4pWRICDilojilojilZEgICDilojilojilZEgICDilojilojilZEgIOKWiOKWiOKVl+KWiOKWiOKVkSAg4paI4paI4pWR4paI4paI4pWRIOKVmuKWiOKWiOKWiOKWiOKVkQog4pWa4pWQ4pWdICDilZrilZDilZ3ilZrilZDilZ0gIOKVmuKVkOKVneKVmuKVkOKVnSAg4pWa4pWQ4pWdICAg4pWa4pWQ4pWdICAg4pWa4pWQ4pWdICDilZrilZDilZ3ilZrilZDilZ0gIOKVmuKVkOKVneKVmuKVkOKVnSAg4pWa4pWQ4pWQ4pWQ4pWdCgo=" | base64 -d
+cat <<-EOF
 
+  █████╗ ██╗  ██╗ █████╗ ████████╗██████╗  █████╗ ███╗   ██╗
+ ██╔══██╗██║ ██╔╝██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗████╗  ██║
+ ███████║█████╔╝ ███████║   ██║   ██████╔╝███████║██╔██╗ ██║
+ ██╔══██║██╔═██╗ ██╔══██║   ██║   ██╔═██╗ ██╔══██║██║╚██╗██║
+ ██║  ██║██║  ██╗██║  ██║   ██║   ██║  ██╗██║  ██║██║ ╚████║
+ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
+
+EOF
